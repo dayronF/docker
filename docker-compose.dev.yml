@@ -41,9 +41,10 @@ services:
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=100
     ports:
       - "4200:4200"
-    command: sh -c "npx ng serve --host 0.0.0.0 --port 4200 --poll 1000"
+    command: sh -c "npx ng serve --host 0.0.0.0 --port 4200 --poll 200 --live-reload=true"
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4200/"]
       interval: 10s
