@@ -1,3 +1,5 @@
+name: syncra-prod
+
 services:
   backend:
     build:

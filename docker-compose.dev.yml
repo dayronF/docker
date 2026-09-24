@@ -1,3 +1,5 @@
+name: syncra-dev
+
 services:
   backend:
     build:
@@ -15,7 +17,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 12
-      start_period: 20s
+      # spring-boot:run recompila desde cero en cada arranque en frío, y hacerlo
+      # sobre un volumen montado desde Windows es bastante más lento que dentro
+      # del contenedor: el primer arranque puede tardar 2-3 minutos.
+      start_period: 200s
     environment:
       AI_SERVICE_URL: http://ai-service:8000
 
