@@ -4,6 +4,7 @@ services:
       context: ${BACKEND_PATH:-../Syncra}
     env_file:
       - ${BACKEND_PATH:-../Syncra}/.env
+    restart: unless-stopped
     expose:
       - "8080"
     environment:
@@ -20,12 +21,13 @@ services:
       context: ${AI_SERVICE_PATH:-../ai-service}
     env_file:
       - ${AI_SERVICE_PATH:-../ai-service}/.env
+    restart: unless-stopped
     environment:
       OPENROUTER_BASE_URL: https://openrouter.ai/api/v1
       OPENROUTER_TIMEOUT_SECONDS: "120"
       OPENROUTER_MAX_OUTPUT_TOKENS: "0"
       OPENROUTER_HTTP_REFERER: http://localhost:8000
-      OPENROUTER_APP_TITLE: Syncra AI`
+      OPENROUTER_APP_TITLE: Syncra AI
       OPENROUTER_MODEL_SECONDARY: nvidia/nemotron-3-super-120b-a12b:free
       OPENROUTER_MODEL_FALLBACK: nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free
       OPENROUTER_REASONING_EFFORT: low
@@ -42,6 +44,7 @@ services:
   frontend:
     build:
       context: ${FRONTEND_PATH:-../Syncra_front}
+    restart: unless-stopped
     expose:
       - "80"
     healthcheck:
@@ -53,6 +56,7 @@ services:
  
   nginx:
     image: nginx:alpine
+    restart: unless-stopped
     ports:
       - "80:80"
     volumes:
